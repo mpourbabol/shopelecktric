@@ -6,10 +6,10 @@ databases:
 
 services:
   - type: web
-    name: home-appliances
+    name: shopelecktric
     runtime: python
     plan: free
-    buildCommand: ./build.sh
+    buildCommand: chmod +x build.sh && ./build.sh
     startCommand: gunicorn website.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
       - key: PYTHON_VERSION
