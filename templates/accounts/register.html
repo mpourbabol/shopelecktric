@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Register" %} - {% trans "Home Appliances" %}{% endblock %}
+
+{% block content %}
+{% trans "Register" as page_title %}
+{% include 'includes/page_header.html' %}
+
+<div class="container-fluid shop py-5">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 bg-light rounded p-5 wow fadeInUp">
+                <h1 class="mb-4 text-center">{% trans "Register" %}</h1>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary rounded-pill w-100 py-3">{% trans "Create Account" %}</button>
+                </form>
+                <p class="mt-3 text-center">{% trans "Already have an account?" %} <a href="{% url 'accounts:login' %}">{% trans "Login" %}</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Payment" %} - {% trans "Order" %} #{{ order.id }}{% endblock %}
+
+{% block content %}
+{% trans "Payment" as page_title %}
+{% trans "Order Details" as breadcrumb_parent %}
+{% url 'order:order_detail' order.id as order_url %}
+{% include 'includes/page_header.html' with breadcrumb_parent_url=order_url %}
+
+<div class="container-fluid shop py-5">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="bg-light rounded p-4 p-lg-5 text-center wow fadeInUp">
+                    <i class="fas fa-credit-card fa-4x text-primary mb-4"></i>
+                    <h2 class="mb-3">{% trans "Order" %} #{{ order.id }}</h2>
+                    <p class="fs-4 mb-2">{% trans "Amount due" %}:</p>
+                    <p class="display-6 text-primary fw-bold mb-4">${{ order.total_price|intcomma }}</p>
+                    <p class="mb-4">
+                        {% trans "Status" %}:
+                        {% if order.paid %}
+                        <span class="badge bg-success rounded-pill px-3">{% trans "Paid" %}</span>
+                        {% else %}
+                        <span class="badge bg-warning text-dark rounded-pill px-3">{% trans "Pending" %}</span>
+                        {% endif %}
+                    </p>
+                    {% if not order.paid %}
+                    <div class="d-grid gap-3">
+                        <form method="post" action="{% url 'order:mark_paid' order.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success rounded-pill py-3 w-100">
+                                <i class="fas fa-check me-2"></i>{% trans "Mark as Paid (Test)" %}
+                            </button>
+                        </form>
+                        <a href="{% url 'order:zarinpal_stub' order.id %}" class="btn btn-primary rounded-pill py-3">
+                            <i class="fas fa-credit-card me-2"></i>{% trans "Pay with Zarinpal" %}
+                            {% if zarinpal_sandbox %}({% trans "Sandbox" %}){% endif %}
+                        </a>
+                    </div>
+                    {% else %}
+                    <a href="{% url 'order:order_detail' order.id %}" class="btn btn-primary rounded-pill px-5 py-3">{% trans "View Order" %}</a>
+                    {% endif %}
+                    <a href="{% url 'order:order_list' %}" class="btn btn-link mt-3">{% trans "Back to Orders" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Home Appliances - Quality for Your Home" %}{% endblock %}
+
+{% block hero %}
+<div class="container-fluid carousel bg-light px-0">
+    <div class="row g-0 justify-content-end">
+        <div class="col-12 col-lg-7 col-xl-9">
+            <div class="header-carousel owl-carousel bg-light py-5">
+                <div class="row g-0 header-carousel-item align-items-center">
+                    <div class="col-xl-6 carousel-content p-4 order-xl-2">
+                        <h4 class="text-uppercase fw-bold mb-4" style="letter-spacing: 3px;">{% trans "Save Up To 40%" %}</h4>
+                        <h1 class="display-5 text-capitalize mb-4">{% trans "Premium Home Appliances For Your Kitchen & Laundry" %}</h1>
+                        <p class="text-dark">{% trans "Terms and conditions apply" %}</p>
+                        <a class="btn btn-primary rounded-pill py-3 px-5" href="{% url 'home:product_list' %}">{% trans "Shop Now" %}</a>
+                    </div>
+                    <div class="col-xl-6 carousel-img d-flex align-items-center justify-content-center p-4">
+                        <i class="fas fa-blender fa-10x text-primary opacity-25"></i>
+                    </div>
+                </div>
+                <div class="row g-0 header-carousel-item align-items-center">
+                    <div class="col-xl-6 carousel-content p-4 order-xl-2">
+                        <h4 class="text-uppercase fw-bold mb-4" style="letter-spacing: 3px;">{% trans "New Arrivals" %}</h4>
+                        <h1 class="display-5 text-capitalize mb-4">{% trans "Discover The Latest Home Essentials" %}</h1>
+                        <a class="btn btn-primary rounded-pill py-3 px-5" href="{% url 'home:product_list' %}">{% trans "Browse Products" %}</a>
+                    </div>
+                    <div class="col-xl-6 carousel-img d-flex align-items-center justify-content-center p-4">
+                        <i class="fas fa-tshirt fa-10x text-secondary opacity-25"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-5 col-xl-3 d-none d-lg-block">
+            <div class="carousel-header-banner h-100 bg-primary d-flex flex-column justify-content-center text-white p-5">
+                <p class="fs-5 fw-bold mb-2">{% trans "Special Offer" %}</p>
+                <h3 class="mb-3">{% trans "Up To 50% Off Selected Items" %}</h3>
+                <a href="{% url 'home:product_list' %}" class="btn btn-secondary rounded-pill py-2 px-4 align-self-start">
+                    <i class="fas fa-shopping-cart me-2"></i>{% trans "Shop Now" %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+{% include 'includes/electro_services.html' %}
+
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="row g-4 mb-5">
+            <div class="col-lg-4 text-start wow fadeInLeft" data-wow-delay="0.1s">
+                <h1>{% trans "Our Products" %}</h1>
+            </div>
+            <div class="col-lg-8 text-end wow fadeInRight" data-wow-delay="0.1s">
+                <ul class="nav nav-pills d-inline-flex text-center mb-5 flex-wrap justify-content-end">
+                    <li class="nav-item mb-2">
+                        <a class="d-flex mx-2 py-2 bg-light rounded-pill active" data-bs-toggle="pill" href="#tab-all">
+                            <span class="text-dark px-3">{% trans "All Products" %}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="d-flex py-2 mx-2 bg-light rounded-pill" data-bs-toggle="pill" href="#tab-new">
+                            <span class="text-dark px-3">{% trans "New Arrivals" %}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="d-flex mx-2 py-2 bg-light rounded-pill" data-bs-toggle="pill" href="#tab-featured">
+                            <span class="text-dark px-3">{% trans "Featured" %}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="d-flex mx-2 py-2 bg-light rounded-pill" data-bs-toggle="pill" href="#tab-top">
+                            <span class="text-dark px-3">{% trans "Top Selling" %}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div id="tab-all" class="tab-pane fade show active p-0">
+                <div class="row g-4">{% for product in all_products %}{% include 'includes/product_card.html' %}{% empty %}<p class="text-muted">{% trans "No products available yet." %}</p>{% endfor %}</div>
+            </div>
+            <div id="tab-new" class="tab-pane fade p-0">
+                <div class="row g-4">{% for product in new_arrivals %}{% include 'includes/product_card.html' %}{% endfor %}</div>
+            </div>
+            <div id="tab-featured" class="tab-pane fade p-0">
+                <div class="row g-4">{% for product in featured_products %}{% include 'includes/product_card.html' %}{% endfor %}</div>
+            </div>
+            <div id="tab-top" class="tab-pane fade p-0">
+                <div class="row g-4">{% for product in top_selling %}{% include 'includes/product_card.html' %}{% endfor %}</div>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <a href="{% url 'home:product_list' %}" class="btn btn-primary rounded-pill py-3 px-5">{% trans "View All Products" %}</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function () {
+        if ($('.header-carousel').length) {
+            $('.header-carousel').owlCarousel({
+                items: 1,
+                autoplay: true,
+                smartSpeed: 1000,
+                dots: false,
+                loop: true,
+                nav: false
+            });
+        }
+    });
+</script>
+{% endblock %}

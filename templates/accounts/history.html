@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Browsing History" %} - {% trans "Home Appliances" %}{% endblock %}
+
+{% block content %}
+{% trans "Browsing History" as page_title %}
+{% include 'includes/page_header.html' %}
+
+<div class="container-fluid shop py-5">
+    <div class="container py-5">
+        <div class="row g-4">
+            {% include 'includes/account_sidebar.html' with active='history' %}
+            <div class="col-lg-9">
+                <div class="row g-4 product">
+                    {% for view in views %}
+                    {% if view.product %}
+                    {% include 'includes/product_card.html' with product=view.product %}
+                    {% endif %}
+                    {% empty %}
+                    <div class="col-12 text-center py-5">
+                        <i class="fas fa-history fa-4x text-muted mb-4"></i>
+                        <p class="text-muted fs-5">{% trans "No browsing history yet." %}</p>
+                        <a href="{% url 'home:product_list' %}" class="btn btn-primary rounded-pill px-5">{% trans "Browse Products" %}</a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

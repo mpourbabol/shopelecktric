@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Shopping Cart" %} - {% trans "Home Appliances" %}{% endblock %}
+
+{% block content %}
+{% trans "Shopping Cart" as page_title %}
+{% trans "Shop" as breadcrumb_parent %}
+{% url 'home:product_list' as shop_url %}
+{% include 'includes/page_header.html' with breadcrumb_parent_url=shop_url %}
+
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        {% if cart_items %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">{% trans "Product" %}</th>
+                        <th scope="col">{% trans "Variant" %}</th>
+                        <th scope="col">{% trans "Price" %}</th>
+                        <th scope="col">{% trans "Quantity" %}</th>
+                        <th scope="col">{% trans "Total" %}</th>
+                        <th scope="col">{% trans "Remove" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <th scope="row">
+                            <a href="{% url 'home:product_detail' item.product.slug %}" class="mb-0 py-4 d-block text-dark">{{ item.product.name }}</a>
+                        </th>
+                        <td><p class="mb-0 py-4">{% if item.variant %}{{ item.variant.name }}{% else %}-{% endif %}</p></td>
+                        <td><p class="mb-0 py-4">${{ item.product.final_price|intcomma }}</p></td>
+                        <td>
+                            <form method="post" action="{% url 'cart:cart_update' item.id %}" class="py-4">
+                                {% csrf_token %}
+                                <div class="input-group quantity" style="width: 120px;">
+                                    <button type="button" class="btn btn-sm btn-minus rounded-circle bg-light border" onclick="var i=this.form.quantity;if(i.value>1){i.value--;this.form.submit()}">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                    <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control form-control-sm text-center border-0">
+                                    <button type="submit" class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </td>
+                        <td><p class="mb-0 py-4">${{ item.total_price|intcomma }}</p></td>
+                        <td class="py-4">
+                            <form method="post" action="{% url 'cart:cart_remove' item.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-md rounded-circle bg-light border">
+                                    <i class="fa fa-times text-danger"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-5">
+            <form method="post" action="{% url 'cart:apply_coupon' %}" class="d-flex flex-wrap gap-2 align-items-center">
+                {% csrf_token %}
+                <input type="text" name="code" class="border rounded py-3 px-4" placeholder="{% trans 'Coupon Code' %}">
+                <button class="btn btn-primary rounded-pill px-4 py-3" type="submit">{% trans "Apply Coupon" %}</button>
+            </form>
+            {% if coupon_discount %}
+            <p class="text-success mt-2">{% trans "Discount applied" %}: {{ coupon_discount }}%</p>
+            {% endif %}
+        </div>
+        <div class="row g-4 justify-content-end mt-2">
+            <div class="col-sm-8 col-md-7 col-lg-6 col-xl-4">
+                <div class="bg-light rounded">
+                    <div class="p-4">
+                        <h1 class="display-6 mb-4">{% trans "Cart" %} <span class="fw-normal">{% trans "Total" %}</span></h1>
+                        <div class="d-flex justify-content-between mb-4">
+                            <h5 class="mb-0 me-4">{% trans "Subtotal" %}:</h5>
+                            <p class="mb-0">${{ total|intcomma }}</p>
+                        </div>
+                        {% if coupon_discount %}
+                        <div class="d-flex justify-content-between mb-4">
+                            <h5 class="mb-0 me-4">{% trans "Discount" %}:</h5>
+                            <p class="mb-0 text-success">{{ coupon_discount }}%</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
+                        <h5 class="mb-0 ps-4 me-4">{% trans "Total" %}</h5>
+                        <p class="mb-0 pe-4 fw-bold">${{ grand_total|intcomma }}</p>
+                    </div>
+                    <a href="{% url 'order:checkout' %}" class="btn btn-primary rounded-pill px-4 py-3 text-uppercase mb-4 ms-4">
+                        {% trans "Proceed to Checkout" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-shopping-cart fa-4x text-muted mb-4"></i>
+            <p class="text-muted fs-5">{% trans "Your cart is empty." %}</p>
+            <a href="{% url 'home:product_list' %}" class="btn btn-primary rounded-pill px-5 py-3">{% trans "Browse Products" %}</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

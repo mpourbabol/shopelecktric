@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Compare Products" %} - {% trans "Home Appliances" %}{% endblock %}
+
+{% block content %}
+{% trans "Compare Products" as page_title %}
+{% include 'includes/page_header.html' %}
+
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        {% if products %}
+        <div class="table-responsive bg-white rounded p-4 shadow-sm">
+            <table class="table table-bordered align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="py-3">{% trans "Feature" %}</th>
+                        {% for product in products %}
+                        <th class="text-center py-3">{{ product.name }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="fw-bold">{% trans "Image" %}</td>
+                        {% for product in products %}
+                        <td class="text-center">
+                            {% if product.image %}
+                            <img src="{{ product.image.url }}" class="img-fluid rounded" style="max-height:120px" alt="{{ product.name }}">
+                            {% else %}
+                            <i class="fas fa-blender fa-3x text-muted"></i>
+                            {% endif %}
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">{% trans "Brand" %}</td>
+                        {% for product in products %}
+                        <td class="text-center">{{ product.brand.name|default:"-" }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">{% trans "Price" %}</td>
+                        {% for product in products %}
+                        <td class="text-center text-primary fw-bold">${{ product.final_price|intcomma }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">{% trans "Stock" %}</td>
+                        {% for product in products %}
+                        <td class="text-center">{{ product.amount }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td class="fw-bold">{% trans "Actions" %}</td>
+                        {% for product in products %}
+                        <td class="text-center">
+                            <a href="{% url 'home:product_detail' product.slug %}" class="btn btn-primary btn-sm rounded-pill mb-2">{% trans "Details" %}</a>
+                            <form method="post" action="{% url 'cart:compare_remove' product.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill">{% trans "Remove" %}</button>
+                            </form>
+                        </td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-random fa-4x text-muted mb-4"></i>
+            <p class="text-muted fs-5">{% trans "No products to compare. Add products from the product pages." %}</p>
+            <a href="{% url 'home:product_list' %}" class="btn btn-primary rounded-pill px-5 py-3">{% trans "Browse Products" %}</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

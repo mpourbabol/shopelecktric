@@ -1,0 +1,419 @@
+# German translations for Home Appliances store
+# Copyright (C) 2026
+# This file is distributed under the same license as the Django project.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Home Appliances 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-14 12:00+0000\n"
+"PO-Revision-Date: 2026-06-14 12:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: German\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Home Appliances"
+msgstr "Haushaltsgeräte"
+
+msgid "Home"
+msgstr "Startseite"
+
+msgid "Products"
+msgstr "Produkte"
+
+msgid "Compare"
+msgstr "Vergleichen"
+
+msgid "Search products..."
+msgstr "Produkte suchen..."
+
+msgid "Cart"
+msgstr "Warenkorb"
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Favourites"
+msgstr "Favoriten"
+
+msgid "Browsing History"
+msgstr "Browsing-Verlauf"
+
+msgid "My Orders"
+msgstr "Meine Bestellungen"
+
+msgid "Logout"
+msgstr "Abmelden"
+
+msgid "Login"
+msgstr "Anmelden"
+
+msgid "Register"
+msgstr "Registrieren"
+
+msgid "Home Appliances. All rights reserved."
+msgstr "Haushaltsgeräte. Alle Rechte vorbehalten."
+
+msgid "Welcome to Home Appliances"
+msgstr "Willkommen bei Haushaltsgeräte"
+
+msgid "Discover premium kitchen, laundry, and cleaning products for your home."
+msgstr "Entdecken Sie hochwertige Küchen-, Wasch- und Reinigungsprodukte für Ihr Zuhause."
+
+msgid "Shop Products"
+msgstr "Produkte kaufen"
+
+msgid "Featured Products"
+msgstr "Empfohlene Produkte"
+
+msgid "No products available yet."
+msgstr "Noch keine Produkte verfügbar."
+
+msgid "View Details"
+msgstr "Details anzeigen"
+
+msgid "Filters"
+msgstr "Filter"
+
+msgid "Apply"
+msgstr "Anwenden"
+
+msgid "Clear"
+msgstr "Zurücksetzen"
+
+msgid "No products match your filters."
+msgstr "Keine Produkte entsprechen Ihren Filtern."
+
+msgid "Previous"
+msgstr "Zurück"
+
+msgid "Next"
+msgstr "Weiter"
+
+msgid "Details"
+msgstr "Details"
+
+msgid "Brand"
+msgstr "Marke"
+
+msgid "In stock"
+msgstr "Auf Lager"
+
+msgid "Views"
+msgstr "Aufrufe"
+
+msgid "Variant"
+msgstr "Variante"
+
+msgid "Quantity"
+msgstr "Menge"
+
+msgid "Add to Cart"
+msgstr "In den Warenkorb"
+
+msgid "Add to Favourites"
+msgstr "Zu Favoriten hinzufügen"
+
+msgid "Remove from Favourites"
+msgstr "Aus Favoriten entfernen"
+
+msgid "Description"
+msgstr "Beschreibung"
+
+msgid "Reviews"
+msgstr "Bewertungen"
+
+msgid "Post Review"
+msgstr "Bewertung abgeben"
+
+msgid "to leave a review."
+msgstr "um eine Bewertung abzugeben."
+
+msgid "No reviews yet."
+msgstr "Noch keine Bewertungen."
+
+msgid "Search"
+msgstr "Suche"
+
+msgid "Search Results"
+msgstr "Suchergebnisse"
+
+msgid "Results for"
+msgstr "Ergebnisse für"
+
+msgid "No products found."
+msgstr "Keine Produkte gefunden."
+
+msgid "Shopping Cart"
+msgstr "Warenkorb"
+
+msgid "Product"
+msgstr "Produkt"
+
+msgid "Price"
+msgstr "Preis"
+
+msgid "Total"
+msgstr "Gesamt"
+
+msgid "Update"
+msgstr "Aktualisieren"
+
+msgid "Coupon code"
+msgstr "Gutscheincode"
+
+msgid "Apply Coupon"
+msgstr "Gutschein anwenden"
+
+msgid "Discount"
+msgstr "Rabatt"
+
+msgid "Subtotal"
+msgstr "Zwischensumme"
+
+msgid "Proceed to Checkout"
+msgstr "Zur Kasse"
+
+msgid "Your cart is empty."
+msgstr "Ihr Warenkorb ist leer."
+
+msgid "Browse Products"
+msgstr "Produkte durchsuchen"
+
+msgid "Compare Products"
+msgstr "Produkte vergleichen"
+
+msgid "max 4"
+msgstr "max. 4"
+
+msgid "Feature"
+msgstr "Merkmal"
+
+msgid "Image"
+msgstr "Bild"
+
+msgid "Stock"
+msgstr "Bestand"
+
+msgid "Remove"
+msgstr "Entfernen"
+
+msgid "No products to compare. Add products from the product pages."
+msgstr "Keine Produkte zum Vergleichen. Fügen Sie Produkte von den Produktseiten hinzu."
+
+msgid "Checkout"
+msgstr "Kasse"
+
+msgid "Order Summary"
+msgstr "Bestellübersicht"
+
+msgid "Shipping to"
+msgstr "Lieferung an"
+
+msgid "Place Order"
+msgstr "Bestellung aufgeben"
+
+msgid "Payment"
+msgstr "Zahlung"
+
+msgid "Order"
+msgstr "Bestellung"
+
+msgid "Amount due"
+msgstr "Fälliger Betrag"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Paid"
+msgstr "Bezahlt"
+
+msgid "Pending"
+msgstr "Ausstehend"
+
+msgid "Mark as Paid (Test)"
+msgstr "Als bezahlt markieren (Test)"
+
+msgid "Pay with Zarinpal"
+msgstr "Mit Zarinpal bezahlen"
+
+msgid "Sandbox"
+msgstr "Sandbox"
+
+msgid "View Order"
+msgstr "Bestellung anzeigen"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Customer"
+msgstr "Kunde"
+
+msgid "Email"
+msgstr "E-Mail"
+
+msgid "Address"
+msgstr "Adresse"
+
+msgid "Unit Price"
+msgstr "Stückpreis"
+
+msgid "Back to Orders"
+msgstr "Zurück zu Bestellungen"
+
+msgid "You have no orders yet."
+msgstr "Sie haben noch keine Bestellungen."
+
+msgid "Start Shopping"
+msgstr "Einkaufen beginnen"
+
+msgid "Create Account"
+msgstr "Konto erstellen"
+
+msgid "Already have an account?"
+msgstr "Haben Sie bereits ein Konto?"
+
+msgid "Don't have an account?"
+msgstr "Haben Sie noch kein Konto?"
+
+msgid "My Profile"
+msgstr "Mein Profil"
+
+msgid "Username"
+msgstr "Benutzername"
+
+msgid "First name"
+msgstr "Vorname"
+
+msgid "Last name"
+msgstr "Nachname"
+
+msgid "Phone"
+msgstr "Telefon"
+
+msgid "Edit Profile"
+msgstr "Profil bearbeiten"
+
+msgid "Change Password"
+msgstr "Passwort ändern"
+
+msgid "Update Profile"
+msgstr "Profil aktualisieren"
+
+msgid "Save Changes"
+msgstr "Änderungen speichern"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "My Favourites"
+msgstr "Meine Favoriten"
+
+msgid "View"
+msgstr "Anzeigen"
+
+msgid "No favourite products yet."
+msgstr "Noch keine Favoriten."
+
+msgid "View Again"
+msgstr "Erneut anzeigen"
+
+msgid "No browsing history yet."
+msgstr "Noch kein Browsing-Verlauf."
+
+msgid "Password"
+msgstr "Passwort"
+
+msgid "Confirm password"
+msgstr "Passwort bestätigen"
+
+msgid "Passwords do not match."
+msgstr "Passwörter stimmen nicht überein."
+
+msgid "Invalid email or password."
+msgstr "Ungültige E-Mail oder Passwort."
+
+msgid "Registration successful. Welcome!"
+msgstr "Registrierung erfolgreich. Willkommen!"
+
+msgid "You are now logged in."
+msgstr "Sie sind jetzt angemeldet."
+
+msgid "You have been logged out."
+msgstr "Sie wurden abgemeldet."
+
+msgid "Profile updated successfully."
+msgstr "Profil erfolgreich aktualisiert."
+
+msgid "Password changed successfully."
+msgstr "Passwort erfolgreich geändert."
+
+msgid "Your comment has been posted."
+msgstr "Ihr Kommentar wurde veröffentlicht."
+
+msgid "Added to favourites."
+msgstr "Zu Favoriten hinzugefügt."
+
+msgid "Removed from favourites."
+msgstr "Aus Favoriten entfernt."
+
+msgid "Product added to cart."
+msgstr "Produkt zum Warenkorb hinzugefügt."
+
+msgid "Item removed from cart."
+msgstr "Artikel aus dem Warenkorb entfernt."
+
+msgid "Cart updated."
+msgstr "Warenkorb aktualisiert."
+
+msgid "Coupon applied successfully."
+msgstr "Gutschein erfolgreich angewendet."
+
+msgid "This coupon is not valid."
+msgstr "Dieser Gutschein ist nicht gültig."
+
+msgid "Invalid coupon code."
+msgstr "Ungültiger Gutscheincode."
+
+msgid "You can compare up to 4 products."
+msgstr "Sie können bis zu 4 Produkte vergleichen."
+
+msgid "Product added to compare list."
+msgstr "Produkt zur Vergleichsliste hinzugefügt."
+
+msgid "Product removed from compare list."
+msgstr "Produkt aus der Vergleichsliste entfernt."
+
+msgid "Order created successfully."
+msgstr "Bestellung erfolgreich erstellt."
+
+msgid "Payment confirmed. Thank you for your order!"
+msgstr "Zahlung bestätigt. Vielen Dank für Ihre Bestellung!"
+
+msgid "No address provided"
+msgstr "Keine Adresse angegeben"
+
+msgid "Comment"
+msgstr "Kommentar"
+
+msgid "Rating"
+msgstr "Bewertung"
+
+msgid "Write your review..."
+msgstr "Schreiben Sie Ihre Bewertung..."
+
+msgid "Home Appliances - Quality for Your Home"
+msgstr "Haushaltsgeräte - Qualität für Ihr Zuhause"
+
+msgid "Category"
+msgstr "Kategorie"
+
+msgid "Min price"
+msgstr "Mindestpreis"
+
+msgid "Max price"
+msgstr "Höchstpreis"

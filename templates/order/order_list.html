@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "My Orders" %} - {% trans "Home Appliances" %}{% endblock %}
+
+{% block content %}
+{% trans "My Orders" as page_title %}
+{% include 'includes/page_header.html' %}
+
+<div class="container-fluid shop py-5">
+    <div class="container py-5">
+        <div class="row g-4">
+            {% include 'includes/account_sidebar.html' with active='orders' %}
+            <div class="col-lg-9 wow fadeInUp" data-wow-delay="0.1s">
+                {% if orders %}
+                <div class="table-responsive bg-white rounded p-3 shadow-sm">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>{% trans "Order" %} #</th>
+                                <th>{% trans "Date" %}</th>
+                                <th>{% trans "Total" %}</th>
+                                <th>{% trans "Status" %}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                                <td class="fw-bold">#{{ order.id }}</td>
+                                <td>{{ order.create|date:"M d, Y H:i" }}</td>
+                                <td class="text-primary fw-bold">${{ order.total_price|intcomma }}</td>
+                                <td>
+                                    {% if order.paid %}
+                                    <span class="badge bg-success rounded-pill px-3">{% trans "Paid" %}</span>
+                                    {% else %}
+                                    <span class="badge bg-warning text-dark rounded-pill px-3">{% trans "Pending" %}</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'order:order_detail' order.id %}" class="btn btn-primary btn-sm rounded-pill">{% trans "Details" %}</a>
+                                    {% if not order.paid %}
+                                    <a href="{% url 'order:payment' order.id %}" class="btn btn-outline-primary btn-sm rounded-pill">{% trans "Pay" %}</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center py-5 bg-light rounded">
+                    <i class="fas fa-receipt fa-4x text-muted mb-4"></i>
+                    <p class="text-muted fs-5">{% trans "You have no orders yet." %}</p>
+                    <a href="{% url 'home:product_list' %}" class="btn btn-primary rounded-pill px-5 py-3">{% trans "Start Shopping" %}</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

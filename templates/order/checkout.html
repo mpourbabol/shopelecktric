@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Checkout" %} - {% trans "Home Appliances" %}{% endblock %}
+
+{% block content %}
+{% include 'includes/electro_services.html' %}
+
+<div class="container-fluid bg-light overflow-hidden py-5">
+    <div class="container py-5">
+        <h1 class="mb-4 wow fadeInUp" data-wow-delay="0.1s">{% trans "Billing details" %}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="row g-5">
+                <div class="col-md-12 col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="bg-white rounded p-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-item w-100 mb-3">
+                                    <label class="form-label">{% trans "First Name" %}</label>
+                                    <input type="text" class="form-control" value="{{ user.f_name|default:user.username }}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-item w-100 mb-3">
+                                    <label class="form-label">{% trans "Last Name" %}</label>
+                                    <input type="text" class="form-control" value="{{ user.l_name|default:'' }}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-item mb-3">
+                            <label class="form-label">{% trans "Email Address" %}</label>
+                            <input type="email" class="form-control" value="{{ user.email }}" readonly>
+                        </div>
+                        <div class="form-item mb-3">
+                            <label class="form-label">{% trans "Phone" %}</label>
+                            <input type="text" class="form-control" value="{{ user.phone|default:'-' }}" readonly>
+                        </div>
+                        <div class="form-item mb-3">
+                            <label class="form-label">{% trans "Address" %}</label>
+                            <input type="text" class="form-control" value="{{ user.address|default:_('No address provided') }}" readonly>
+                        </div>
+                        <p class="text-muted small mb-0">
+                            <a href="{% url 'accounts:update_profile' %}">{% trans "Update your profile" %}</a> {% trans "to change shipping details." %}
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="table-responsive bg-white rounded p-3">
+                        <table class="table mb-0">
+                            <thead>
+                                <tr class="text-center">
+                                    <th scope="col" class="text-start">{% trans "Product" %}</th>
+                                    <th scope="col">{% trans "Variant" %}</th>
+                                    <th scope="col">{% trans "Price" %}</th>
+                                    <th scope="col">{% trans "Qty" %}</th>
+                                    <th scope="col">{% trans "Total" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart_items %}
+                                <tr class="text-center">
+                                    <th scope="row" class="text-start py-3">{{ item.product.name }}</th>
+                                    <td class="py-3">{% if item.variant %}{{ item.variant.name }}{% else %}-{% endif %}</td>
+                                    <td class="py-3">${{ item.product.final_price|intcomma }}</td>
+                                    <td class="py-3">{{ item.quantity }}</td>
+                                    <td class="py-3">${{ item.total_price|intcomma }}</td>
+                                </tr>
+                                {% endfor %}
+                                <tr>
+                                    <th scope="row" colspan="3"></th>
+                                    <td class="py-3"><p class="mb-0 text-dark">{% trans "Subtotal" %}</p></td>
+                                    <td class="py-3"><p class="mb-0">${{ total|intcomma }}</p></td>
+                                </tr>
+                                {% if coupon_discount %}
+                                <tr>
+                                    <th scope="row" colspan="3"></th>
+                                    <td class="py-3"><p class="mb-0 text-dark">{% trans "Discount" %}</p></td>
+                                    <td class="py-3"><p class="mb-0 text-success">{{ coupon_discount }}%</p></td>
+                                </tr>
+                                {% endif %}
+                                <tr>
+                                    <th scope="row" colspan="3"></th>
+                                    <td class="py-3"><p class="mb-0 text-dark fw-bold">{% trans "Total" %}</p></td>
+                                    <td class="py-3"><p class="mb-0 fw-bold">${{ grand_total|intcomma }}</p></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button type="submit" class="btn btn-primary rounded-pill px-5 py-3 mt-4 w-100">
+                        <i class="fas fa-check me-2"></i>{% trans "Place Order" %}
+                    </button>
+                    <a href="{% url 'cart:cart_detail' %}" class="btn btn-outline-secondary rounded-pill px-5 py-3 mt-2 w-100">{% trans "Back to Cart" %}</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

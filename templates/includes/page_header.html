@@ -1,0 +1,11 @@
+{% load i18n %}
+<div class="container-fluid page-header py-5">
+    <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">{{ page_title }}</h1>
+    <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
+        <li class="breadcrumb-item"><a href="{% url 'home:home' %}" class="text-white">{% trans "Home" %}</a></li>
+        {% if breadcrumb_parent %}
+        <li class="breadcrumb-item"><a href="{{ breadcrumb_parent_url }}" class="text-white">{{ breadcrumb_parent }}</a></li>
+        {% endif %}
+        <li class="breadcrumb-item active text-white">{{ page_title }}</li>
+    </ol>
+</div>

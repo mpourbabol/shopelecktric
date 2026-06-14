@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static humanize i18n %}
+
+{% block title %}{{ product.name }} - {% trans "Home Appliances" %}{% endblock %}
+
+{% block extra_css %}
+<link href="{% static 'electro/lib/lightbox/css/lightbox.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid shop py-5">
+    <div class="container py-5">
+        <div class="row g-4">
+            {% include 'includes/shop_sidebar.html' %}
+            <div class="col-lg-9 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="row g-4 single-product">
+                    <div class="col-xl-6">
+                        <div class="single-inner bg-light rounded p-4 text-center">
+                            {% if product.image %}
+                            <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+                            {% else %}
+                            <div class="bg-white rounded d-flex align-items-center justify-content-center" style="height:400px">
+                                <i class="fas fa-blender fa-5x text-muted"></i>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <h2 class="fw-bold mb-3">{{ product.name }}</h2>
+                        {% if product.brand %}<p class="mb-3">{% trans "Brand" %}: {{ product.brand.name }}</p>{% endif %}
+                        {% if product.category.exists %}
+                        <p class="mb-3">{% trans "Category" %}:
+                            {% for cat in product.category.all %}{{ cat.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                        </p>
+                        {% endif %}
+                        <h3 class="text-primary fw-bold mb-3">${{ product.final_price|intcomma }}</h3>
+                        {% if product.discount %}
+                        <p><del class="text-muted fs-5">${{ product.unit_price|intcomma }}</del>
+                        <span class="badge bg-danger ms-2">-{{ product.discount }}%</span></p>
+                        {% endif %}
+                        <p class="mb-4">
+                            {% trans "Available" %}:
+                            <strong class="text-primary">{{ product.amount }} {% trans "items in stock" %}</strong>
+                        </p>
+
+                        <form method="post" action="{% url 'cart:cart_add' product.id %}" class="mb-4">
+                            {% csrf_token %}
+                            {% if variants %}
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">{% trans "Variant" %}</label>
+                                <select name="variant_id" class="form-select rounded-pill">
+                                    {% for v in variants %}
+                                    <option value="{{ v.id }}">{{ v.name }} - ${{ v.final_price|intcomma }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            {% endif %}
+                            <div class="input-group quantity mb-4" style="width: 130px;">
+                                <button type="button" class="btn btn-sm btn-minus rounded-circle bg-light border" onclick="var q=document.getElementById('qty');if(q.value>1)q.value--">-</button>
+                                <input type="number" name="quantity" id="qty" value="1" min="1" class="form-control form-control-sm text-center border-0">
+                                <button type="button" class="btn btn-sm btn-plus rounded-circle bg-light border" onclick="document.getElementById('qty').value++">+</button>
+                            </div>
+                            <button type="submit" class="btn btn-primary border-secondary rounded-pill py-3 px-5 me-2">
+                                <i class="fas fa-shopping-cart me-2"></i>{% trans "Add to Cart" %}
+                            </button>
+                        </form>
+
+                        <form method="post" action="{% url 'cart:compare_add' product.id %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-primary rounded-pill py-2 px-4 me-2">
+                                <i class="fas fa-random me-1"></i>{% trans "Compare" %}
+                            </button>
+                        </form>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'home:favourite_toggle' product.id %}?next={{ request.path }}" class="btn btn-outline-danger rounded-pill py-2 px-4">
+                            <i class="fas fa-heart me-1"></i>
+                            {% if is_favourite %}{% trans "Remove from Favourites" %}{% else %}{% trans "Add to Favourites" %}{% endif %}
+                        </a>
+                        {% endif %}
+
+                        {% if product.information %}
+                        <div class="mt-5">
+                            <h4>{% trans "Description" %}</h4>
+                            <div class="text-muted">{{ product.information|safe }}</div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="mt-5 pt-5 border-top">
+                    <h3 class="mb-4">{% trans "Reviews" %} ({{ comments.count }})</h3>
+                    {% if user.is_authenticated %}
+                    <form method="post" class="mb-4 bg-light rounded p-4">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary rounded-pill">{% trans "Post Review" %}</button>
+                    </form>
+                    {% else %}
+                    <p class="mb-4"><a href="{% url 'accounts:login' %}?next={{ request.path }}">{% trans "Login" %}</a> {% trans "to leave a review." %}</p>
+                    {% endif %}
+                    {% for comment in comments %}
+                    <div class="border rounded p-4 mb-3">
+                        <strong>{{ comment.user.username }}</strong>
+                        <span class="text-warning ms-2">{% for i in "12345" %}{% if forloop.counter <= comment.rate %}★{% endif %}{% endfor %}</span>
+                        <small class="text-muted ms-2">{{ comment.create }}</small>
+                        <p class="mb-0 mt-2">{{ comment.comment }}</p>
+                    </div>
+                    {% empty %}
+                    <p class="text-muted">{% trans "No reviews yet." %}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

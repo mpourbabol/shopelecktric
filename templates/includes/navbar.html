@@ -1,0 +1,72 @@
+{% load i18n %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home:home' %}">
+            <i class="fas fa-blender me-2"></i>{% trans "Home Appliances" %}
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home:home' %}">{% trans "Home" %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home:product_list' %}">{% trans "Products" %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cart:compare' %}">{% trans "Compare" %}</a>
+                </li>
+            </ul>
+            <form class="d-flex me-3" action="{% url 'home:search' %}" method="get">
+                <input class="form-control me-2" type="search" name="q" placeholder="{% trans 'Search products...' %}" value="{{ request.GET.q }}">
+                <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cart:cart_detail' %}">
+                        <i class="fas fa-shopping-cart"></i> {% trans "Cart" %}
+                    </a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        <i class="fas fa-user"></i> {{ user.username }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">{% trans "Profile" %}</a></li>
+                        <li><a class="dropdown-item" href="{% url 'accounts:favourites' %}">{% trans "Favourites" %}</a></li>
+                        <li><a class="dropdown-item" href="{% url 'accounts:history' %}">{% trans "Browsing History" %}</a></li>
+                        <li><a class="dropdown-item" href="{% url 'order:order_list' %}">{% trans "My Orders" %}</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">{% trans "Logout" %}</a></li>
+                    </ul>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:login' %}">{% trans "Login" %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:register' %}">{% trans "Register" %}</a>
+                </li>
+                {% endif %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        <i class="fas fa-globe"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <form action="{% url 'set_language' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="next" value="{{ request.path }}">
+                                <button type="submit" name="language" value="en" class="dropdown-item">English</button>
+                                <button type="submit" name="language" value="de" class="dropdown-item">Deutsch</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

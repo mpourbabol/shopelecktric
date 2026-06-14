@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load humanize i18n filter_url %}
+
+{% block title %}{% trans "Search" %} - {% trans "Home Appliances" %}{% endblock %}
+
+{% block content %}
+<div class="container-fluid shop py-5">
+    <div class="container py-5">
+        <h1 class="mb-4">{% trans "Search Results" %}</h1>
+        {% if query %}
+        <p class="text-muted mb-4">{% trans "Results for" %} "<strong>{{ query }}</strong>"</p>
+        {% endif %}
+        <div class="row g-4 product">
+            {% for product in products %}
+            {% include 'includes/product_card.html' %}
+            {% empty %}
+            <div class="col-12"><p class="text-muted">{% trans "No products found." %}</p></div>
+            {% endfor %}
+        </div>
+        {% if page_obj.has_other_pages %}
+        <nav class="mt-5">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link rounded-pill mx-1" href="?q={{ query }}&page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a></li>
+                {% endif %}
+                {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link rounded-pill mx-1" href="?q={{ query }}&page={{ page_obj.next_page_number }}">{% trans "Next" %}</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

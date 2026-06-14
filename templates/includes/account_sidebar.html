@@ -1,0 +1,42 @@
+{% load i18n %}
+<div class="col-lg-3 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="bg-light rounded p-4 mb-4">
+        <div class="text-center mb-4">
+            {% if user.profile_image %}
+            <img src="{{ user.profile_image.url }}" class="rounded-circle img-thumbnail mb-3" style="width:100px;height:100px;object-fit:cover" alt="">
+            {% else %}
+            <div class="bg-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width:100px;height:100px">
+                <i class="fas fa-user fa-3x text-primary"></i>
+            </div>
+            {% endif %}
+            <h5 class="mb-0">{{ user.username }}</h5>
+            <small class="text-muted">{{ user.email }}</small>
+        </div>
+        <div class="list-group list-group-flush">
+            <a href="{% url 'accounts:profile' %}" class="list-group-item list-group-item-action border-0 {% if active == 'profile' %}active{% endif %}">
+                <i class="fas fa-user me-2"></i>{% trans "My Profile" %}
+            </a>
+            <a href="{% url 'accounts:update_profile' %}" class="list-group-item list-group-item-action border-0 {% if active == 'update' %}active{% endif %}">
+                <i class="fas fa-edit me-2"></i>{% trans "Edit Profile" %}
+            </a>
+            <a href="{% url 'accounts:favourites' %}" class="list-group-item list-group-item-action border-0 {% if active == 'favourites' %}active{% endif %}">
+                <i class="fas fa-heart me-2"></i>{% trans "Favourites" %}
+            </a>
+            <a href="{% url 'accounts:history' %}" class="list-group-item list-group-item-action border-0 {% if active == 'history' %}active{% endif %}">
+                <i class="fas fa-history me-2"></i>{% trans "Browsing History" %}
+            </a>
+            <a href="{% url 'order:order_list' %}" class="list-group-item list-group-item-action border-0 {% if active == 'orders' %}active{% endif %}">
+                <i class="fas fa-receipt me-2"></i>{% trans "My Orders" %}
+            </a>
+            <a href="{% url 'cart:cart_detail' %}" class="list-group-item list-group-item-action border-0 {% if active == 'cart' %}active{% endif %}">
+                <i class="fas fa-shopping-cart me-2"></i>{% trans "Cart" %}
+            </a>
+            <a href="{% url 'accounts:password_change' %}" class="list-group-item list-group-item-action border-0 {% if active == 'password' %}active{% endif %}">
+                <i class="fas fa-key me-2"></i>{% trans "Change Password" %}
+            </a>
+            <a href="{% url 'accounts:logout' %}" class="list-group-item list-group-item-action border-0 text-danger">
+                <i class="fas fa-sign-out-alt me-2"></i>{% trans "Logout" %}
+            </a>
+        </div>
+    </div>
+</div>
