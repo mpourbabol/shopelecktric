@@ -95,7 +95,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'website.wsgi.application'
 
+IS_RENDER = os.environ.get('RENDER') == 'true'
 DATABASE_URL = os.environ.get('DATABASE_URL')
+
 if DATABASE_URL:
     import dj_database_url
 
@@ -106,6 +108,14 @@ if DATABASE_URL:
             ssl_require=env_bool('DATABASE_SSL_REQUIRE', False),
         )
     }
+elif IS_RENDER or not DEBUG:
+    from django.core.exceptions import ImproperlyConfigured
+
+    raise ImproperlyConfigured(
+        'DATABASE_URL is required on Render/production. '
+        'Create a PostgreSQL database in Render and paste its Internal Database URL '
+        'into the web service environment variable DATABASE_URL.'
+    )
 else:
     DATABASES = {
         'default': {
